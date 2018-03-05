@@ -10,14 +10,19 @@ post '/getaway' do
 
   case action
   when 'help'
-    "Available commands: _'help'_, _'delays'_, _'elevator'_, _'departsouth'_, _'departnorth'_"
+    respond_message(help)
   when 'delays'
-    'delays'
+    respond_message(get_delays)
   when 'elevator'
-    'elevator'
-  when 'departnorth'
-    'departnorth'
-  when 'departsouth'
-    'departsouth'
+    respond_message(get_elevator_closures)
+  when 'depart north'
+    respond_message(get_departures(_option))
+  when 'depart south'
+    respond_message(get_departures(_option))
   end
+end
+
+def respond_message(message)
+  content_type :json
+  { text: message }.to_json
 end
